@@ -3,517 +3,647 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>帛冠纺织 · 产品包装AI小模型 — 第一阶段交付</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+SC:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>帛冠纺织 · 故事型产品图片样例</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,400&family=Noto+Serif+SC:wght@300;400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --noir: #0f0f0f;
-  --surface: #161616;
-  --surface-raised: #1e1e1e;
-  --gold: #c9a96e;
-  --gold-dim: #8a7245;
-  --gold-bright: #e8d5a8;
-  --text: #e8e4df;
-  --text-dim: #8a8580;
-  --text-muted: #5a5550;
-  --border: #2a2520;
-  --serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
-  --sans: 'DM Sans', -apple-system, sans-serif;
+  --ink: #11100e;
+  --paper: #f5efe4;
+  --paper-soft: #e7dbca;
+  --clay: #c66b42;
+  --moss: #76806a;
+  --sea: #527c8b;
+  --ochre: #c5a04b;
+  --plum: #4d2731;
+  --text: #efe8dc;
+  --muted: #b9ad9d;
+  --dim: #73695d;
+  --line: rgba(239,232,220,0.18);
+  --serif: "Cormorant Garamond", "Noto Serif SC", serif;
+  --sans: "DM Sans", "Noto Serif SC", sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
+* { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-
 body {
-  background: var(--noir);
+  margin: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(255,255,255,0.028) 1px, transparent 1px),
+    radial-gradient(circle at 20% 5%, rgba(198,107,66,0.16), transparent 34%),
+    radial-gradient(circle at 80% 0%, rgba(82,124,139,0.13), transparent 30%),
+    var(--ink);
+  background-size: 72px 72px, 72px 72px, auto, auto, auto;
   color: var(--text);
   font-family: var(--sans);
   font-size: 16px;
-  line-height: 1.8;
-  font-weight: 300;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Grain overlay */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 9999;
+  mix-blend-mode: soft-light;
+  z-index: 3;
 }
 
-.container {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0 48px;
-}
+a { color: inherit; }
+.wrap { width: min(1180px, calc(100% - 56px)); margin: 0 auto; }
 
-/* Hero */
 .hero {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 120px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  right: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero-label {
-  font-family: var(--sans);
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 32px;
-  opacity: 0;
-  animation: fadeUp 0.8s ease 0.3s forwards;
-}
-
-.hero h1 {
-  font-family: var(--serif);
-  font-size: clamp(42px, 6vw, 72px);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--text);
-  margin-bottom: 24px;
-  opacity: 0;
-  animation: fadeUp 0.8s ease 0.5s forwards;
-}
-
-.hero h1 em {
-  font-style: italic;
-  color: var(--gold);
-}
-
-.hero-sub {
-  font-size: 18px;
-  color: var(--text-dim);
-  max-width: 560px;
-  opacity: 0;
-  animation: fadeUp 0.8s ease 0.7s forwards;
-}
-
-/* Sections */
-section {
-  padding: 120px 0;
-  border-top: 1px solid var(--border);
-}
-
-.section-label {
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--gold-dim);
-  margin-bottom: 48px;
-}
-
-h2 {
-  font-family: var(--serif);
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 300;
-  line-height: 1.25;
-  margin-bottom: 32px;
-}
-
-h3 {
-  font-family: var(--serif);
-  font-size: 26px;
-  font-weight: 400;
-  margin-bottom: 16px;
-  color: var(--gold-bright);
-}
-
-p { margin-bottom: 20px; color: var(--text-dim); }
-p.lead { font-size: 20px; color: var(--text); line-height: 1.7; }
-
-strong { color: var(--text); font-weight: 500; }
-
-/* Gold highlight box */
-.insight {
-  border-left: 2px solid var(--gold);
-  padding: 24px 32px;
-  margin: 40px 0;
-  background: linear-gradient(135deg, rgba(201,169,110,0.04) 0%, transparent 100%);
-}
-
-.insight p { color: var(--text); margin: 0; font-size: 17px; }
-
-/* Case study images */
-.case-grid {
   display: grid;
-  gap: 32px;
-  margin: 48px 0;
+  grid-template-columns: 0.72fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 70px 0 56px;
 }
 
-.case-grid.two-col { grid-template-columns: 1fr 1fr; }
-.case-grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+.kicker {
+  margin: 0 0 22px;
+  color: var(--ochre);
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
 
-.case-item {
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(46px, 6.6vw, 94px);
+}
+
+h1 em {
+  display: block;
+  color: var(--clay);
+  font-style: italic;
+}
+
+.hero-copy {
+  margin-top: 28px;
+  max-width: 560px;
+  color: var(--muted);
+  font-size: 19px;
+}
+
+.hero-thesis {
+  margin-top: 36px;
+  padding-left: 22px;
+  border-left: 2px solid var(--clay);
+  color: var(--paper);
+  font-size: 18px;
+}
+
+.hero-figure {
+  margin: 0;
   position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  background: var(--surface);
-  transition: transform 0.3s ease;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: rgba(245,239,228,0.05);
 }
 
-.case-item:hover { transform: translateY(-4px); }
-
-.case-item img {
+.hero-figure img {
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
-  opacity: 0.92;
-  transition: opacity 0.3s ease;
 }
 
-.case-item:hover img { opacity: 1; }
-
-.case-caption {
-  padding: 16px 20px;
-  border-top: 1px solid var(--border);
+.hero-figure figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
 }
 
-.case-caption .brand {
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 4px;
+.section {
+  padding: 96px 0;
+  border-top: 1px solid var(--line);
 }
 
-.case-caption .desc {
-  font-size: 13px;
-  color: var(--text-dim);
-  line-height: 1.5;
-}
-
-/* Full-width case */
-.case-full {
-  margin: 48px -48px;
-  position: relative;
-}
-
-.case-full img {
-  width: 100%;
-  border-radius: 0;
-}
-
-.case-full .overlay-tag {
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  background: rgba(15,15,15,0.85);
-  backdrop-filter: blur(8px);
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-/* Comparison */
-.compare {
+.section-head {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin: 40px 0;
+  grid-template-columns: 0.86fr 1fr;
+  gap: 42px;
+  align-items: end;
+  margin-bottom: 52px;
 }
 
-.compare-bad, .compare-good {
-  padding: 28px;
-  border-radius: 8px;
+.section-head h2 {
+  margin: 0;
+  font-size: clamp(34px, 4vw, 60px);
 }
 
-.compare-bad {
-  background: rgba(180,60,60,0.06);
-  border: 1px solid rgba(180,60,60,0.2);
+.section-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
 }
 
-.compare-good {
-  background: rgba(201,169,110,0.06);
-  border: 1px solid rgba(201,169,110,0.2);
+.principles {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
 }
 
-.compare-label {
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+.principle {
+  background: rgba(17,16,14,0.82);
+  padding: 26px 20px 28px;
+  min-height: 190px;
+}
+
+.principle b {
+  display: block;
+  color: var(--paper);
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+.principle p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.story {
+  --accent: var(--clay);
+  padding: 82px 0;
+  border-top: 1px solid var(--line);
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.82fr);
+  gap: 44px;
+  align-items: start;
+}
+
+.story:nth-of-type(even) .story-grid {
+  grid-template-columns: minmax(360px, 0.82fr) minmax(0, 1.08fr);
+}
+
+.story:nth-of-type(even) .story-text { order: -1; }
+
+.story h2 {
+  margin: 0 0 18px;
+  color: var(--accent);
+  font-size: clamp(38px, 5vw, 72px);
+}
+
+.story-sub {
+  margin: 0 0 26px;
+  color: var(--paper);
+  font-size: 21px;
+}
+
+.story-text p {
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+
+.story-text strong {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 26px;
+}
+
+.tags span {
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  color: var(--paper);
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.image-frame {
+  margin: 0;
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: color-mix(in srgb, var(--accent) 10%, rgba(255,255,255,0.04));
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+}
+
+.image-frame img {
+  display: block;
+  max-width: 100%;
+  max-height: min(58vh, 620px);
+  width: auto;
+  height: auto;
+}
+
+.image-frame figcaption {
+  width: 100%;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.story-wide .story-grid {
+  grid-template-columns: 1fr;
+}
+
+.story-wide .image-frame img {
+  max-height: min(72vh, 720px);
+  width: auto;
+}
+
+.formula {
+  margin-top: 28px;
+  display: grid;
+  gap: 12px;
+}
+
+.formula div {
+  padding: 14px 16px;
+  border-left: 2px solid var(--accent);
+  background: rgba(255,255,255,0.035);
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.formula b {
+  color: var(--paper);
+  font-weight: 500;
+}
+
+.mini-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.mini-gallery figure {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.035);
+}
+
+.mini-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.mini-gallery figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.do-not {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.do-not div {
+  min-height: 210px;
+  padding: 22px;
+  border: 1px solid rgba(198,107,66,0.28);
+  background: rgba(198,107,66,0.055);
+}
+
+.do-not b {
+  display: block;
+  color: var(--paper);
   margin-bottom: 12px;
 }
 
-.compare-bad .compare-label { color: #b44040; }
-.compare-good .compare-label { color: var(--gold); }
-
-.compare p { font-size: 15px; margin: 0; }
-
-/* Decision table */
-.decisions {
-  margin: 40px 0;
+.do-not p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
 }
 
-.decision-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-  align-items: center;
+.final {
+  padding: 90px 0 80px;
+  border-top: 1px solid var(--line);
 }
 
-.decision-row:first-child {
-  border-top: 1px solid var(--border);
+.final-panel {
+  padding: 42px;
+  background:
+    linear-gradient(135deg, rgba(198,107,66,0.14), transparent 42%),
+    rgba(245,239,228,0.055);
+  border: 1px solid var(--line);
 }
 
-.decision-q { font-size: 15px; color: var(--text); }
-.decision-rec { font-size: 14px; color: var(--gold); text-align: center; }
-.decision-confirm { font-size: 13px; color: var(--text-muted); text-align: center; }
+.final-panel h2 {
+  margin: 0 0 20px;
+  font-size: clamp(34px, 4vw, 56px);
+  color: var(--paper);
+}
 
-/* Footer */
+.final-panel p {
+  color: var(--muted);
+  max-width: 820px;
+}
+
 .footer {
-  padding: 80px 0;
-  border-top: 1px solid var(--border);
-  text-align: center;
+  padding: 34px 0 54px;
+  color: var(--dim);
+  font-size: 12px;
+  border-top: 1px solid var(--line);
 }
 
-.footer p {
-  font-size: 13px;
-  color: var(--text-muted);
+@media (max-width: 920px) {
+  .hero,
+  .section-head,
+  .story-grid,
+  .story:nth-of-type(even) .story-grid,
+  .principles,
+  .mini-gallery,
+  .do-not {
+    grid-template-columns: 1fr;
+  }
+
+  .story:nth-of-type(even) .story-text { order: 0; }
+  .hero { padding-top: 46px; }
 }
 
-/* Animations */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .container { padding: 0 24px; }
-  .case-grid.two-col, .case-grid.three-col { grid-template-columns: 1fr; }
-  .compare { grid-template-columns: 1fr; }
-  .decision-row { grid-template-columns: 1fr; gap: 8px; }
-  .case-full { margin: 48px -24px; }
+@media (max-width: 560px) {
+  .wrap { width: min(100% - 32px, 1180px); }
+  .section, .story { padding: 64px 0; }
+  .hero-copy, .section-head p, .story-sub { font-size: 17px; }
+  .image-frame { padding: 10px; min-height: 0; }
+  .final-panel { padding: 28px 22px; }
 }
 
 @media print {
-  body { background: #fff; color: #1a1a1a; }
+  body { background: #fff; color: #171717; }
   body::before { display: none; }
-  .case-item img { opacity: 1; }
-  section { padding: 60px 0; }
+  .section, .story, .final { break-inside: avoid; }
 }
 </style>
 </head>
 <body>
+<main>
+  <header class="hero wrap">
+    <div>
+      <p class="kicker">Boguan textile · story-first references</p>
+      <h1>产品图片要先讲故事<em>再讲参数</em></h1>
+      <p class="hero-copy">这一版不沿用 v0.1 的行业拆解主线。重点改成：寻找那些一眼就能让客户进入场景的产品图片，再拆它们为什么能让面料变成一个可感知的商品机会。</p>
+      <p class="hero-thesis">帛冠需要的不是普通产品照，也不是网页截图，而是“故事型产品图片”：画面里必须同时出现场景、情绪、材料证据和下一步销售理由。</p>
+    </div>
+    <figure class="hero-figure">
+      <img src="images/story_brintons_opulence.png" loading="eager" alt="Brintons Imperfect Opulence story poster">
+      <figcaption>故事型产品图的典型结构：人物/空间建立情绪，面料纹样证明产品，色卡和文字把故事落回可销售的系列。</figcaption>
+    </figure>
+  </header>
 
-<div class="container">
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>什么样的图片才算有故事</h2>
+      <p>只拍一块布，客户只能知道“有这个材料”。故事型图片要让客户看到“这块布会进入谁的生活、什么空间、什么情绪，以及为什么值得拿样”。</p>
+    </div>
+    <div class="principles">
+      <div class="principle">
+        <b>1. 有人物或空间</b>
+        <p>哪怕人物很小、空间很局部，也要让客户知道这块面料会出现在哪里。</p>
+      </div>
+      <div class="principle">
+        <b>2. 有使用瞬间</b>
+        <p>坐下、打开、通勤、靠近、触摸，比平铺面料更容易触发想象。</p>
+      </div>
+      <div class="principle">
+        <b>3. 有材料近证</b>
+        <p>纹理、织法、色卡、布样边缘必须出现，否则故事会漂。</p>
+      </div>
+      <div class="principle">
+        <b>4. 有一句命名</b>
+        <p>标题不是装饰，而是把画面归纳成客户能复述的销售语言。</p>
+      </div>
+      <div class="principle">
+        <b>5. 有可落地字段</b>
+        <p>故事负责吸引，参数负责让客户相信，两个部分不能互相替代。</p>
+      </div>
+    </div>
+  </section>
 
-<!-- HERO -->
-<header class="hero">
-  <p class="hero-label">帛冠纺织 · 第一阶段交付</p>
-  <h1>产品包装<em>AI小模型</em><br>行业案例拆解与输出形态建议</h1>
-  <p class="hero-sub">基于数十家国际面料品牌成品PDF的逐页分析，为帛冠确认AI产品卡的输出形态、内容结构和风格方向。</p>
-</header>
+  <section class="story story-wide" style="--accent: var(--clay);">
+    <div class="wrap story-grid">
+      <div class="story-text">
+        <p class="kicker">Reference 01 · world building</p>
+        <h2>把面料放进一个客户想进入的世界</h2>
+        <p class="story-sub">Brintons 的价值不在“图片好看”，而在于它把地毯变成了一个复古、微奢、带一点戏剧感的世界。</p>
+        <div class="tags">
+          <span>人物</span><span>建筑</span><span>纹样</span><span>色卡</span><span>长文案</span>
+        </div>
+      </div>
+      <figure class="image-frame">
+        <img src="images/story_brintons_opulence.png" loading="lazy" alt="Brintons Imperfect Opulence story poster">
+        <figcaption>图片完整显示，不裁切。它的故事强度来自“人物状态 + 建筑记忆 + 纹样肌理 + 色彩编号”的同场出现。</figcaption>
+      </figure>
+      <div class="story-text">
+        <p><strong>为什么符合帛冠需求：</strong>它不是孤立展示产品，而是先让客户相信“这个主题可以成立”。面料只是故事的材料证据，但它在画面里足够大、足够清楚。</p>
+        <p><strong>帛冠可借鉴：</strong>服装面料可以把主题换成“梅雨通勤”“长途差旅衣橱”“礼盒打开瞬间”。图片里需要有人、衣物局部、布料近景、色卡，而不是只有一张布样。</p>
+        <div class="formula">
+          <div><b>图片公式：</b>一个可进入的情境 + 一个面料主纹理 + 3-5 个色彩编号 + 一句世界观标题。</div>
+          <div><b>AI 输出：</b>标题、场景短文、材料证据字段、业务员可复述话术。</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- SECTION 1: POSITIONING -->
-<section>
-  <p class="section-label">定位</p>
-  <h2>帛冠要做的，市场上还没有人做</h2>
-  <p class="lead">现有工具要么懂面料但不会讲故事（湛蓝科技、Style3D），要么会讲故事但不懂面料（Gamma、WPS AI）。帛冠要做的是一个<strong>面料价值转译系统</strong>——把参数变成客户能理解的语言，把技术变成销售能复述的故事。</p>
+  <section class="story" style="--accent: var(--sea);">
+    <div class="wrap story-grid">
+      <figure class="image-frame">
+        <img src="images/story_pallas_cirque.png" loading="lazy" alt="Pallas Cirque story card">
+        <figcaption>Pallas Cirque 用家具空间承接纹样，客户看到的不是“图案”，而是“这组面料能让空间变得更活”。</figcaption>
+      </figure>
+      <div class="story-text">
+        <p class="kicker">Reference 02 · product in use</p>
+        <h2>让客户看到面料被使用后的样子</h2>
+        <p class="story-sub">Pallas 的 Cirque 是更适合中小公司的方向：图片不复杂，但每张都在说明“这块布用到产品上会怎样”。</p>
+        <div class="tags">
+          <span>家具场景</span><span>系列命名</span><span>应用效果</span><span>轻故事</span>
+        </div>
+        <p><strong>故事性来自应用：</strong>它没有依赖大制作摄影，而是让面料出现在椅子、办公空间、软包里。客户不需要想象太多，画面已经替他完成一次“应用预演”。</p>
+        <p><strong>帛冠可借鉴：</strong>如果做服装面料，必须出现衣服轮廓、穿着动作或人体局部；如果做家纺/软装，必须出现沙发、窗帘、床品或空间角落。产品图要从“材料照片”升级为“应用片段”。</p>
+        <div class="formula">
+          <div><b>图片公式：</b>成品应用图 + 面料局部 + 系列小标题 + 1 句情绪解释。</div>
+          <div><b>适合场景：</b>客户提案 PPT、业务员发客户预览图、样品寄送前的主题卡。</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <div class="insight">
-    <p>核心判断：市场上没有一个工具能同时覆盖"纺织专业知识 + 故事型文案 + 视觉方向 + 销售动作指引"。</p>
+  <section class="story" style="--accent: var(--moss);">
+    <div class="wrap story-grid">
+      <figure class="image-frame">
+        <img src="images/story_kvadrat_allround.png" loading="lazy" alt="Kvadrat Allround material narrative">
+        <figcaption>Kvadrat Allround 证明：故事不一定要宏大，布料折叠、光影和触感本身也可以成为故事入口。</figcaption>
+      </figure>
+      <div class="story-text">
+        <p class="kicker">Reference 03 · tactile narrative</p>
+        <h2>让一块布自己产生“触摸欲”</h2>
+        <p class="story-sub">如果没有人物和空间，图片也不能只是平铺。Kvadrat 的做法是用折痕、阴影和纤维质感讲“柔软、自然垂坠、干净”。</p>
+        <div class="tags">
+          <span>触感</span><span>褶皱</span><span>光影</span><span>极简文案</span>
+        </div>
+        <p><strong>故事性来自触感：</strong>客户看见的是布料的性格，而不是一张规格图。折叠动作让材料像被人刚刚拿起，画面有“使用前一秒”的状态。</p>
+        <p><strong>帛冠可借鉴：</strong>对基础款、素色款、功能款尤其有用。不要硬写大故事，可以让“洗后垂感”“亲肤褶皱”“轻薄透气”成为图片故事。</p>
+        <div class="formula">
+          <div><b>图片公式：</b>单块布的折叠姿态 + 清晰纤维细节 + 留白文案 + 3 个核心参数。</div>
+          <div><b>适合产品：</b>素色、棉麻、弹力、衬衫料、通勤基础款。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="story" style="--accent: var(--ochre);">
+    <div class="wrap story-grid">
+      <figure class="image-frame">
+        <img src="images/story_camira_quest.png" loading="lazy" alt="Camira Quest sustainability story card">
+        <figcaption>Camira Quest 的故事性来自“海洋塑料被重新变成面料”这一转化过程，而不是单纯环保口号。</figcaption>
+      </figure>
+      <div class="story-text">
+        <p class="kicker">Reference 04 · evidence as story</p>
+        <h2>把功能证据也拍成故事</h2>
+        <p class="story-sub">功能面料不能只列检测结果。Camira 把环保来源、海岸色彩、布样组合和关键事实放到同一张卡里，让“证据”也有画面。</p>
+        <div class="tags">
+          <span>环保来源</span><span>布样组合</span><span>事实框</span><span>销售证据</span>
+        </div>
+        <p><strong>故事性来自转化：</strong>废弃塑料变成织物，海岸色彩变成色卡，材料来源变成销售理由。这种图片适合让采购相信“卖点是真的”。</p>
+        <p><strong>帛冠可借鉴：</strong>抗皱、抗菌、阻燃、再生纤维、凉感、弹力这类卖点，都应该有“前因后果”的图片，而不是只把检测数字放表格里。</p>
+        <div class="formula">
+          <div><b>图片公式：</b>来源意象 + 布样证据 + 关键数据框 + 适用场景一句话。</div>
+          <div><b>适合产品：</b>功能型、环保型、制服面料、户外/差旅场景面料。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="story" style="--accent: #9a7153;">
+    <div class="wrap story-grid">
+      <figure class="image-frame">
+        <img src="images/boutique_studio_ford_collection_iii.jpg" loading="lazy" alt="Studio Ford Collection III story page">
+        <figcaption>Studio Ford 的页面很克制，但图片不是产品网格，而是房间、桌面和花型共同构成一个安静的生活片段。</figcaption>
+      </figure>
+      <div class="story-text">
+        <p class="kicker">Reference 05 · small studio mood</p>
+        <h2>小公司更适合做窄主题，而不是大叙事</h2>
+        <p class="story-sub">Studio Ford 的图片说明：小型品牌不需要假装成行业巨头，只要把一个具体情绪讲完整，就会有高级感。</p>
+        <div class="tags">
+          <span>小型工作室</span><span>生活片段</span><span>自然灵感</span><span>留白</span>
+        </div>
+        <p><strong>故事性来自“窄”：</strong>它不是讲全品牌，而是讲一个系列的灵感和气质。图片少，但每张都服务同一个主题。</p>
+        <p><strong>帛冠可借鉴：</strong>不用一次做十种风格。每款面料先判断它最适合哪个微型世界：雨天通勤、春夏衬衫、旅行箱、酒店房间、童装礼盒、户外午后。</p>
+        <div class="formula">
+          <div><b>图片公式：</b>2 张生活片段 + 1 个材料近景 + 一段灵感来源。</div>
+          <div><b>适合产品：</b>季节小系列、花型款、联名款、客户定制主题。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="story" style="--accent: #d1764b;">
+    <div class="wrap story-grid">
+      <figure class="image-frame">
+        <img src="images/boutique_luiz_destinations.png" loading="lazy" alt="LUIZ DESTINATIONS lookbook">
+        <figcaption>LUIZ 用地点和旅行感组织产品，不是让客户看布，而是让客户进入一组地点记忆。</figcaption>
+      </figure>
+      <div class="story-text">
+        <p class="kicker">Reference 06 · named scene</p>
+        <h2>用地点、时刻、动作给系列命名</h2>
+        <p class="story-sub">故事型图片最怕泛泛而谈。“高级”“舒适”“自然”都太空，地点和动作更容易让客户记住。</p>
+        <div class="tags">
+          <span>地点叙事</span><span>旅行感</span><span>系列命名</span><span>PPT开场</span>
+        </div>
+        <p><strong>故事性来自命名：</strong>DESTINATIONS 把每组产品放进地点线索里，图片天然适合做提案开场。</p>
+        <p><strong>帛冠可借鉴：</strong>AI 不只生成“产品名”，还要生成“客户能理解的场景名”。例如：梅雨通勤、候机厅午后、商务酒店床尾、春季样衣间。</p>
+        <div class="formula">
+          <div><b>图片公式：</b>场景名 + 情绪图 + 材料图 + 适用客户。</div>
+          <div><b>适合输出：</b>客户提案 PPT 第一页、企划卡封面、业务员朋友圈/私域预热图。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>仍然需要证据，但不能让证据抢走故事</h2>
+      <p>规格页、Line Sheet、色卡页不是主角。它们应该作为故事图片后的第二层，用来回答客户“能不能落地、能不能采购、能不能打样”。</p>
+    </div>
+    <div class="mini-gallery">
+      <figure>
+        <img src="images/boutique_lebatex_mangrove.png" loading="lazy" alt="LebaTex Mangrove product sheet">
+        <figcaption>单页规格：适合作为故事图后的参数承接。</figcaption>
+      </figure>
+      <figure>
+        <img src="images/boutique_aa_eco_linesheet.png" loading="lazy" alt="AA ECO line sheet">
+        <figcaption>交易字段：MOQ、交期、认证等放在第二层。</figcaption>
+      </figure>
+      <figure>
+        <img src="images/boutique_rosebrand_poly_muslin.png" loading="lazy" alt="Rose Brand product spec">
+        <figcaption>技术规格：做事实底座，不做主视觉。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="section-head">
+      <h2>下一版不要再做这三类主图</h2>
+      <p>它们不是不能出现，而是不能作为第一眼的主视觉。第一眼必须先把客户带进故事。</p>
+    </div>
+    <div class="do-not">
+      <div>
+        <b>不要用产品网格当主图</b>
+        <p>产品网格适合选货，不适合激发客户想象。它只能放在故事图之后。</p>
+      </div>
+      <div>
+        <b>不要用孤立布样当主图</b>
+        <p>布样只能证明材质存在，不能说明它会出现在哪个生活或商业场景。</p>
+      </div>
+      <div>
+        <b>不要让规格表开场</b>
+        <p>参数是信任层，不是吸引层。客户先被画面吸引，才愿意看参数。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final wrap">
+    <div class="final-panel">
+      <h2>帛冠 V1 的图片方向应该改成“故事主图 + 证据副图”</h2>
+      <p>每张产品卡先生成一张故事型主图：有具体场景、有使用瞬间、有材料近证、有一句可复述的主题名。再生成一张证据副图：色卡、规格、性能、MOQ、交期和打样动作。这样才既符合小型公司的实际生产能力，也能让业务员拿去和客户沟通。</p>
+      <p><strong>建议下一步：</strong>围绕帛冠真实面料，先做 4 个故事主题样张，而不是继续扩展案例数量。</p>
+    </div>
+  </section>
+</main>
+
+<section class="final wrap" style="padding-top: 0;">
+  <div class="final-panel" style="background: rgba(201,169,110,0.06); border: 1px solid rgba(201,169,110,0.2); text-align: center;">
+    <p style="font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #8a7245; margin-bottom: 16px;">V0.2 补充交付</p>
+    <h2 style="margin-bottom: 16px;">中小品牌精选案例 · 小而精的五种叙事路径</h2>
+    <p style="max-width: 560px; margin: 0 auto 24px;">HUIS · Røros Tweed · Lapuan Kankurit · Le Minor · Johanna Gullichsen — 五个年营收千万级"小厂"如何用精细叙事打动客户。</p>
+    <a href="v02.html" style="display: inline-block; padding: 12px 32px; border: 1px solid #c9a96e; color: #c9a96e; text-decoration: none; border-radius: 6px; font-size: 14px; letter-spacing: 1px; transition: all 0.3s;">查看 V0.2 案例 →</a>
   </div>
 </section>
 
-<!-- SECTION 2: CASE STUDIES -->
-<section>
-  <p class="section-label">案例拆解</p>
-  <h2>行业里最好的产品卡，长什么样</h2>
-  <p class="lead">以下四个案例代表了四种截然不同的产品表达策略，从中可以清晰看到市场方向。</p>
-
-  <!-- Case 1: VFM TUNDRA -->
-  <h3>VFM Design · TUNDRA 系列册</h3>
-  <p>瑞士VFM Design是一家中等规模的装饰面料企业，产品定位在商用空间（酒店、办公）。TUNDRA是他们2025年的新系列，13页的册子里藏着一套非常成熟的产品表达逻辑。</p>
-
-  <div class="case-grid two-col">
-    <div class="case-item">
-      <img src="images/Baumann_TUNDRA_p1.jpg" loading="lazy" alt="TUNDRA 封面">
-      <div class="case-caption">
-        <p class="brand">封面策略</p>
-        <p class="desc">不是面料特写，而是面料在真实场景中的效果。客户第一眼看到的是"这块布用在沙发上是什么感觉"。</p>
-      </div>
-    </div>
-    <div class="case-item">
-      <img src="images/Baumann_TUNDRA_p2.jpg" loading="lazy" alt="TUNDRA 系列故事">
-      <div class="case-caption">
-        <p class="brand">系列叙事</p>
-        <p class="desc">"Textures born from frost and whispered winds." 用北欧冻原的意象统领整个系列，但紧接着就是功能定位：durability and comfort。</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="case-grid two-col">
-    <div class="case-item">
-      <img src="images/Baumann_TUNDRA_p3.jpg" loading="lazy" alt="TUNDRA RIGI产品页">
-      <div class="case-caption">
-        <p class="brand">单品产品页</p>
-        <p class="desc">每个子系列固定结构：故事标题 → 一段功能描述 → Keywords标签行 → 参数表（成分/克重/门幅/耐磨/用途/护理）。</p>
-      </div>
-    </div>
-    <div class="case-item">
-      <img src="images/Baumann_TUNDRA_p4.jpg" loading="lazy" alt="TUNDRA 色卡">
-      <div class="case-caption">
-        <p class="brand">色卡页</p>
-        <p class="desc">每个子系列配一页色卡。网格排列，编号清晰，无多余装饰。这是B2B面料卡的标配元素。</p>
-      </div>
-    </div>
-  </div>
-
-  <p>TUNDRA的文案有一个值得注意的手法：每个子系列的标题都是一句"从A到B"的转化叙事。RIGI是"From Alpine heights to homebound comfort"，WHISLER是"A quiet force of structure and stillness"。这不是空洞的诗意——每句话都在暗示面料的核心卖点（RIGI的卖点是"高山般坚韧但家居般舒适"，WHISLER的卖点是"结构感但不生硬"）。</p>
-
-  <p>更关键的是参数表的设计。VFM只选了7个字段：编号、色数、门幅、循环、成分、克重、耐磨、用途、护理。没有堆砌所有检测数据，而是只放采购决策必需的信息。这种克制比信息过载更专业。</p>
-
-  <div class="insight">
-    <p>TUNDRA对帛冠的启示：固定模板 + 可变叙事。结构统一但故事各异——这正是AI生成的理想场景。帛冠的每款面料都可以套用这个"场景封面→系列故事→单品页（故事+参数）→色卡"的四层结构。</p>
-  </div>
-
-  <!-- Case 2: Chelsea Textiles -->
-  <h3>Chelsea Textiles · Arcadia</h3>
-  <p>Chelsea Textiles是伦敦的高端手工刺绣面料品牌，一米布的价格可能是帛冠产品的50倍。Arcadia系列只有5页，但每一页都在做同一件事：让面料的工艺细节自己说话。</p>
-
-  <div class="case-grid two-col">
-    <div class="case-item">
-      <img src="images/Chelsea_Textiles_Arcadia_p1.jpg" loading="lazy" alt="Arcadia 封面">
-      <div class="case-caption">
-        <p class="brand">封面</p>
-        <p class="desc">品牌名、"INTRODUCING"、系列名、一句话、一张花纹图。整页信息量不超过30个英文单词。</p>
-      </div>
-    </div>
-    <div class="case-item">
-      <img src="images/Chelsea_Textiles_Arcadia_p3.jpg" loading="lazy" alt="Arcadia 配色叙事">
-      <div class="case-caption">
-        <p class="brand">配色叙事</p>
-        <p class="desc">左侧微距细节+全幅效果，右侧历史溯源文案。参数只有4项：成分、工艺、门幅、循环。</p>
-      </div>
-    </div>
-  </div>
-
-  <p>Chelsea的文案策略完全不讲功能。"Taken from an 18th Century English original, Arcadia is an exquisite example of embroidery from this era depicting flora and folia in remarkable detail." 它在讲历史、讲工艺传承、讲美学价值。这对Chelsea的客户（室内设计师、高端酒店采购）是有效的——他们买的不是"布"，是"故事"和"品位"。</p>
-
-  <p>但这个策略对帛冠不适用。帛冠的客户大概率不会为"18世纪英国刺绣传统"买单。Chelsea的价值在于它展示了一个极端：当产品足够独特时，可以完全放弃功能叙事，只讲美学。所以需要"故事+证据"的双层结构。</p>
-
-  <div class="insight">
-    <p>Chelsea对帛冠的启示：面料图片的视觉占比应该极高（60%以上）。文字越少，每个字的分量越重。帛冠可以借鉴这个"图片主导"的比例，但必须在有限的文字空间里同时传递故事和参数。</p>
-  </div>
-
-  <!-- Case 3: Camira -->
-  <h3>Camira · Regent Storycard</h3>
-  <p>Camira是英国最大的商用面料制造商之一，产品覆盖办公、交通、酒店。他们为每个系列都制作了一张"Storycard"——单页、双面、A4尺寸。。</p>
-
-  <div class="case-grid two-col">
-    <div class="case-item">
-      <img src="images/Camira_Regent_Storycard_p1.jpg" loading="lazy" alt="Camira Regent 正面">
-      <div class="case-caption">
-        <p class="brand">Storycard 正面</p>
-        <p class="desc">从上到下：品牌logo → 系列名 → 应用场景图 → 一段故事文案 → 关键性能指标 → 环保认证标志 → 色卡条。</p>
-      </div>
-    </div>
-    <div class="case-item">
-      <img src="images/Camira_Regent_Storycard_p2.jpg" loading="lazy" alt="Camira Regent 背面">
-      <div class="case-caption">
-        <p class="brand">Storycard 背面</p>
-        <p class="desc">完整技术规格 + 可持续发展叙事 + 认证详情。正面讲故事，背面讲事实。</p>
-      </div>
-    </div>
-  </div>
-
-  <p>Camira的Storycard之所以是标杆，因为它在一张纸上解决了三个问题：让客户愿意看（场景图+故事）、让客户能判断（性能指标+认证）、让客户能行动（色卡+索样信息）。这三层信息的排列顺序不是随意的——它遵循了"吸引→信任→行动"的说服逻辑。</p>
-
-  <p>Camira还有一个帛冠可以直接借鉴的做法：他们为不同系列的Storycard使用完全相同的模板结构，只替换内容。Regent、Rivet、Replay、Blazer——每个系列的卡片结构一模一样，但故事各异。这意味着一旦模板确定，AI只需要生成内容，不需要每次重新设计版式。</p>
-
-  <div class="insight">
-    <p>Camira对帛冠的启示：这就是帛冠V1应该对标的密度和结构。单页、有故事、有参数、有色卡、有认证——信息完整但不冗余。固定模板+可变内容=AI批量生成的理想形态。</p>
-  </div>
-
-  <!-- Case 4: Brintons Imperfect Opulence -->
-  <h3>Brintons + Stacy Garcia · Imperfect Opulence</h3>
-  <p>Brintons是英国历史最悠久的地毯制造商之一，Imperfect Opulence是他们与设计师Stacy Garcia合作的酒店系列。这份画册几乎就是一张成熟的海报式企划卡——它不是在展示地毯，而是在构建一个完整的世界观。</p>
-
-  <div class="case-grid two-col">
-    <div class="case-item">
-      <img src="images/02_Brintons_Imperfect_Opulence-02.jpg" loading="lazy" alt="Brintons 故事页">
-      <div class="case-caption">
-        <p class="brand">故事页</p>
-        <p class="desc">标题"Imperfect Opulence"。视觉拼贴：人物、建筑、纹样、色卡同页出现。定位在"Gucci grandeur与Wes Anderson quirk之间"。</p>
-      </div>
-    </div>
-    <div class="case-item">
-      <img src="images/02_Brintons_Imperfect_Opulence-03.jpg" loading="lazy" alt="Brintons 规格承接页">
-      <div class="case-caption">
-        <p class="brand">规格承接页</p>
-        <p class="desc">故事页之后立刻进入设计编号、repeat尺寸、色号。前一页讲故事，后一页讲事实——分层但不割裂。</p>
-      </div>
-    </div>
-  </div>
-
-  <p>Brintons的页面告诉我们"故事感"到底是什么——不是"写得文艺"，而是把客户带入一个具体的消费或使用场景。它用vintage textiles、storybook cottages、nostalgia这些词构建了一个"复古奢华"的世界，然后用纹样、色卡和空间图证明这个世界可以落地到酒店地面上。</p>
-
-  <p>更关键的是它的分层逻辑：故事页负责让客户想要继续看，规格页负责让客户相信可以落地。这两层不是二选一，而是前后承接。帛冠的企划卡也应该遵循这个逻辑——正面讲故事，背面（或底部）给事实。</p>
-
-  <div class="insight">
-    <p>Brintons对帛冠的启示：故事型企划卡的核心不是"文案写得好"，而是"构建一个客户想进入的世界"。帛冠可以用同样的方法——"梅雨通勤""礼盒打开瞬间""长途差旅衣橱"——每个主题都是一个微型世界，面料是这个世界的材料基础。但要注意：Brintons面向高端酒店项目，视觉留白极大；帛冠V1应该更紧凑、更销售化，让业务员读完知道怎么报价。</p>
-  </div>
-
-  <!-- Synthesis -->
-  <h3>四个案例指向同一个结论</h3>
-  <p class="lead">无论是VFM的"故事+参数"平衡、Chelsea的"极致克制"、Camira的"单页全信息"、还是Brintons的"海报式世界观"——所有成功的面料产品卡都在做同一件事：<strong>用最少的信息量，让客户做出"我要看样品"的决定。</strong></p>
-
-  <p>不是让客户当场下单，不是让客户完全理解面料的所有性能——只是让他们愿意索样。这是面料B2B销售的第一步，也是产品卡唯一需要完成的任务。帛冠的AI模型生成的每一张卡片，都应该以"客户看完会不会要样品"作为唯一的评判标准。</p>
-
-  <!-- What NOT to do -->
-  <h3>反面边界：什么不应该成为帛冠的企划卡</h3>
-
-  <div class="case-grid two-col">
-    <div class="case-item">
-      <img src="images/05_FashionIllustrationTribe_FabricBoard.jpg" loading="lazy" alt="纯面料板">
-      <div class="case-caption">
-        <p class="brand">反例：纯面料板</p>
-        <p class="desc">能证明材料存在，但缺故事、缺场景、缺销售动作。只能做"证据区"的素材，不能成为整张卡。</p>
-      </div>
-    </div>
-    <div class="case-item">
-      <img src="images/04_SunGlow_Japandi_FabricMoodBoard.jpg" loading="lazy" alt="普通Moodboard">
-      <div class="case-caption">
-        <p class="brand">反例：普通Moodboard</p>
-        <p class="desc">有标题、色卡、面料、场景，接近企划卡，但缺三件事：客户产品场景、纺织证据、销售动作。</p>
-      </div>
-    </div>
-  </div>
-
-  <p>帛冠的企划卡必须同时满足三个条件才算合格：有故事入口（让客户愿意看）、有材料证据（让客户相信）、有下一步动作（让业务员能推进）。缺任何一个，都只是"好看的图"而不是"能卖货的工具"。</p>
-
-</section>
-
-<!-- FOOTER -->
 <footer class="footer">
-  <p>帛冠纺织 · 产品包装AI小模型 — 第一阶段交付文档<br>2026年5月 · V0.1</p>
+  <div class="wrap">帛冠纺织 · 产品包装AI小模型 · 故事型产品图片样例补充 · 2026年5月</div>
 </footer>
-
-</div>
 </body>
 </html>

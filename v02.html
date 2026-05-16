@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>帛冠纺织 · V0.2 中小品牌精选案例</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+SC:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir: #0f0f0f;
+  --surface: #161616;
+  --surface-raised: #1e1e1e;
+  --gold: #c9a96e;
+  --gold-dim: #8a7245;
+  --gold-bright: #e8d5a8;
+  --text: #e8e4df;
+  --text-dim: #8a8580;
+  --text-muted: #5a5550;
+  --border: #2a2520;
+  --serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --sans: 'DM Sans', -apple-system, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--noir);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+.container { max-width: 1120px; margin: 0 auto; padding: 0 48px; }
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 120px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(201,169,110,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.3s forwards;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.5s forwards;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 18px;
+  color: var(--text-dim);
+  max-width: 600px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.7s forwards;
+}
+section { padding: 100px 0; border-top: 1px solid var(--border); }
+.section-label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 48px;
+}
+h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 48px); font-weight: 300; line-height: 1.25; margin-bottom: 32px; }
+h3 { font-family: var(--serif); font-size: 28px; font-weight: 400; margin-bottom: 16px; color: var(--gold-bright); }
+p { margin-bottom: 20px; color: var(--text-dim); }
+p.lead { font-size: 20px; color: var(--text); line-height: 1.7; }
+strong { color: var(--text); font-weight: 500; }
+a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); transition: border-color 0.3s; }
+a:hover { border-color: var(--gold); }
+.insight { border-left: 2px solid var(--gold); padding: 24px 32px; margin: 40px 0; background: linear-gradient(135deg, rgba(201,169,110,0.04) 0%, transparent 100%); border-radius: 0 8px 8px 0; }
+.insight p { color: var(--text); margin: 0; font-size: 17px; }
+.brand-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin: 32px 0; }
+.brand-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+.brand-meta span { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-dim); padding: 4px 12px; border: 1px solid var(--border); border-radius: 4px; }
+.story-block { background: var(--surface-raised); border-radius: 8px; padding: 28px; margin: 24px 0; border-left: 3px solid var(--gold-dim); }
+.story-block .label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.story-block p { font-size: 15px; margin: 0; color: var(--text-dim); line-height: 1.7; }
+.style-tag { display: inline-block; font-size: 13px; color: var(--gold-bright); background: rgba(201,169,110,0.08); padding: 6px 14px; border-radius: 20px; margin: 4px 4px 4px 0; }
+.img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 32px 0; }
+.img-grid img { width: 100%; border-radius: 8px; border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s; }
+.img-grid img:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+.img-caption { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 8px; font-style: italic; }
+.img-full { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin: 24px 0; }
+.visual-mock { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; margin: 32px 0; text-align: center; position: relative; overflow: hidden; }
+.visual-mock::before { content: ''; position: absolute; inset: 0; opacity: 0.05; }
+.visual-mock .mock-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 16px; }
+.visual-mock .mock-link { display: inline-block; margin-top: 16px; font-size: 14px; color: var(--gold); border: 1px solid var(--gold-dim); padding: 8px 20px; border-radius: 6px; transition: all 0.3s; }
+.visual-mock .mock-link:hover { background: rgba(201,169,110,0.1); border-color: var(--gold); }
+.footer { padding: 80px 0; border-top: 1px solid var(--border); text-align: center; }
+.footer p { font-size: 13px; color: var(--text-muted); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 768px) { .container { padding: 0 24px; } .img-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <p class="hero-label">帛冠纺织 · V0.2</p>
+  <h1>小而精的<em>产品故事</em><br>中小品牌如何用叙事打动客户</h1>
+  <p class="hero-sub">规模不大的品牌，如何用更精细、更有温度的方式讲好产品故事？以下五个案例，每个都是年营收千万级别的"小厂"，但产品呈现的质感远超其体量。</p>
+</header>
+
+<!-- SECTION: INTRO -->
+<section>
+  <p class="section-label">为什么看中小品牌</p>
+  <h2>龙头教你"做对"，小厂教你"做巧"</h2>
+  <p class="lead">VFM、Chelsea、Camira、Brintons告诉市场"结构应该长什么样"。但没有专业摄影棚，没有年投百万的品牌预算。帛冠需要的是：<strong>在有限资源下，如何让产品卡既有故事感又有专业度</strong>。</p>
+  <p>以下五个品牌，规模从10人到80人不等，年营收在300万到1200万美元之间。他们的共同特点是：产品呈现的品质远远超过了他们的体量。每一个都在用不同的方式回答同一个问题——"我很小，但我的故事很大"。</p>
+  <div class="insight">
+    <p>核心判断：帛冠V1产品卡的竞争力不在于模仿大牌的"高级感"，而在于找到属于自己规模的"精致感"。以下五个案例提供了五种不同的精致路径。</p>
+  </div>
+</section>
+
+<!-- CASE 1: HUIS -->
+<section>
+  <p class="section-label">案例一 · 极简触感叙事</p>
+  <h3>HUIS · 遠州織物（日本静冈）</h3>
+
+  <div class="brand-card">
+    <div class="brand-meta">
+      <span>日本 · 静冈县</span>
+      <span>~10人</span>
+      <span>产地直营品牌</span>
+      <span>shuttle loom 织物</span>
+    </div>
+    <p>HUIS是日本远州地区的微型面料品牌，核心只有不到10个人。他们用濒临消失的旧式梭织机（shuttle loom）织布，然后做成日常服饰。产品目录设计——干净到令人屏息。</p>
+  </div>
+
+  <p><strong>以下为HUIS 2025春夏目录实拍页面：</strong></p>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/huis_page-02.jpg" alt="HUIS 2025SS目录 - 面料触感展示">
+      <p class="img-caption">面料触感特写 · 自然光下的蓬松空气感</p>
+    </div>
+    <div>
+      <img src="images/v02/huis_page-03.jpg" alt="HUIS 2025SS目录 - 产品展示">
+      <p class="img-caption">产品展示页 · 极简留白+单品聚焦</p>
+    </div>
+  </div>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/huis_page-05.jpg" alt="HUIS 2025SS目录 - 色彩系列">
+      <p class="img-caption">色彩系列 · 每款只用一张图+一行文字</p>
+    </div>
+    <div>
+      <img src="images/v02/huis_page-07.jpg" alt="HUIS 2025SS目录 - 生活场景">
+      <p class="img-caption">生活场景 · 面料在日常中的呈现</p>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <p class="label">产品叙事策略</p>
+    <p>HUIS的每一款面料都不是在讲"面料参数"，而是在讲"这台织机的故事"。核心叙事：旧式梭织机转速极低（现代织机的1/5），但正因为慢，纬线不被过度拉伸，织出的布有一种现代织机永远无法复制的蓬松空气感。"慢"不是劣势，而是产品的核心卖点。</p>
+  </div>
+
+  <p><strong>视觉风格：</strong></p>
+  <p>
+    <span class="style-tag">极简留白</span>
+    <span class="style-tag">gallery式排版</span>
+    <span class="style-tag">面料触感特写</span>
+    <span class="style-tag">自然光</span>
+  </p>
+
+  <p>季节目录每页通常只有一张图+一行文字。图片永远是自然光下的面料近距离触感照——不是平铺的"色卡照"，而是有皱褶、有光影、有空气感的"生活照"。参数信息被藏在最后的表格页。每季目录的封面不是产品图，而是一张远州地区的风景——茶田、木造工坊、阳光穿过纱窗。产品是从这片土地"长出来"的。</p>
+
+  <div class="insight">
+    <p><strong>HUIS对帛冠的启示：</strong>即使只有一台织机、一种面料，也能做出有故事的产品卡。关键是找到你的"核心矛盾"——HUIS的是"慢vs快"，帛冠的可能是"功能vs美感""工业vs手工""批量vs定制"。把这个矛盾变成每张卡片的叙事引擎。而且——"少即是多"：一张好图+一句准确的话，比10张普通图+一页说明文有效得多。</p>
+  </div>
+</section>
+
+<!-- CASE 2: Røros Tweed -->
+<section>
+  <p class="section-label">案例二 · 设计师联名+地域叙事</p>
+  <h3>Røros Tweed（挪威罗弗敦）</h3>
+
+  <div class="brand-card">
+    <div class="brand-meta">
+      <span>挪威 · Røros</span>
+      <span>~30人</span>
+      <span>年营收 ~$3-4M</span>
+      <span>设计师联名模式</span>
+    </div>
+    <p>Røros Tweed位于挪威的Røros小镇（UNESCO世界遗产地），自1940年起生产羊毛制品。规模不大，但品牌形象做到了欧洲一线水准。秘诀：每个产品系列都由命名设计师主导，MOS Oslo（挪威顶级创意机构）做品牌设计。</p>
+  </div>
+
+  <p><strong>以下为Røros Tweed 2024 Lookbook实拍页面：</strong></p>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/roros_page-03.jpg" alt="Røros Tweed Lookbook - 场景摄影">
+      <p class="img-caption">场景摄影 · 产品在挪威自然环境中的呈现</p>
+    </div>
+    <div>
+      <img src="images/v02/roros_page-04.jpg" alt="Røros Tweed Lookbook - 产品特写">
+      <p class="img-caption">产品特写 · 羊毛质感与色彩叙事</p>
+    </div>
+  </div>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/roros_page-05.jpg" alt="Røros Tweed Lookbook - 设计师系列">
+      <p class="img-caption">设计师系列 · 每条毯子都有署名创作者</p>
+    </div>
+    <div>
+      <img src="images/v02/roros_extra-10.jpg" alt="Røros Tweed Lookbook - 色彩与地貌">
+      <p class="img-caption">色彩源自地貌 · "极光绿""冻土灰""浆果红"</p>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <p class="label">产品叙事策略</p>
+    <p>"设计师就是产品故事"——每一条毯子都有一位署名设计师（Runa Klock、Andreas Engesvik等）。产品页面不只讲面料参数，而是讲"这位设计师为什么要设计这条毯子"、"灵感来自哪里"、"从草图到成品经历了什么"。客户买的不只是一条羊毛毯，而是一位设计师的创作意图。</p>
+  </div>
+
+  <p><strong>视觉风格：</strong></p>
+  <p>
+    <span class="style-tag">北欧当代</span>
+    <span class="style-tag">大气场景摄影</span>
+    <span class="style-tag">设计师肖像</span>
+    <span class="style-tag">挪威自然光</span>
+  </p>
+
+  <p>Lookbook典型页面结构：左页是产品在挪威木屋/雪景/峡湾中的场景照，右页是设计师草图+灵感来源+叙事文案。Røros镇本身就是故事——300年矿业历史、极端气候、羊毛传统。每本lookbook都会花1-2页介绍这个小镇，让客户理解"为什么这里能织出这样的毯子"。</p>
+
+  <div class="insight">
+    <p><strong>Røros Tweed对帛冠的启示：</strong>两个核心策略可借鉴——①"人格化产品"：给每款面料一个"主理人"或"设计意图"，哪怕只是业务员自己的选品理由；②"地域叙事"：帛冠在哪里？工厂周围有什么？城市有什么纺织历史？把这些"产地故事"编织进每张产品卡的底层。</p>
+  </div>
+</section>
+
+<!-- CASE 3: Lapuan Kankurit -->
+<section>
+  <p class="section-label">案例三 · 季节情感叙事</p>
+  <h3>Lapuan Kankurit（芬兰拉普阿）</h3>
+
+  <div class="brand-card">
+    <div class="brand-meta">
+      <span>芬兰 · Lapua</span>
+      <span>~50人</span>
+      <span>年营收 ~$8-10M</span>
+      <span>家族织造厂 · 1973年至今</span>
+    </div>
+    <p>Lapuan Kankurit是芬兰西部小镇Lapua的家族织造厂，三代人经营。产品线覆盖亚麻毯、羊毛围巾、桌布、浴巾。规模不大，但品牌调性做到了北欧设计的一线水准——与Marimekko同台出现在赫尔辛基设计周，产品进入MoMA Design Store。</p>
+  </div>
+
+  <p><strong>以下为Lapuan Kankurit S/S 2026 造型摄影（Styling: Susanna Vento）：</strong></p>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/lapuan_01.jpg" alt="Lapuan Kankurit SS2026 - 生活场景">
+      <p class="img-caption">生活场景 · 自然光下的亚麻织物</p>
+    </div>
+    <div>
+      <img src="images/v02/lapuan_02.jpg" alt="Lapuan Kankurit SS2026 - 季节情绪">
+      <p class="img-caption">季节情绪 · 产品在日常空间中的呈现</p>
+    </div>
+  </div>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/lapuan_03.jpg" alt="Lapuan Kankurit SS2026 - 材质特写">
+      <p class="img-caption">材质特写 · 芬兰夏日的柔和色调</p>
+    </div>
+    <div>
+      <img src="images/v02/lapuan_04.jpg" alt="Lapuan Kankurit SS2026 - 空间搭配">
+      <p class="img-caption">空间搭配 · 织物与居住环境的融合</p>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <p class="label">产品叙事策略</p>
+    <p>Lapuan Kankurit的核心策略是"季节情感"——不是按产品线分类，而是按季节情绪分类。春夏目录里，亚麻毯和浴巾被放在同一个"湖畔"场景里；秋冬目录里，羊毛毯和围巾被放在同一个"壁炉"场景里。客户买的不是"一条毯子"，而是"一个季节的感觉"。</p>
+  </div>
+
+  <p><strong>视觉风格：</strong></p>
+  <p>
+    <span class="style-tag">季节情绪摄影</span>
+    <span class="style-tag">芬兰自然光</span>
+    <span class="style-tag">生活场景优先</span>
+    <span class="style-tag">柔和色调</span>
+  </p>
+
+  <p>目录的典型页面：左页是产品在芬兰湖区/森林/木屋中的场景照（永远有人在使用——披着毯子看书、用亚麻巾擦手），右页是产品平铺照+极简参数（材质、尺寸、色号）。文案极短，通常只有一句话，但那句话永远在讲"感觉"而不是"功能"——"The weight of a summer evening"（一个夏夜的重量）。</p>
+
+  <p>更值得注意的是他们的"设计师合作"模式：每季邀请1-2位芬兰设计师（如Mifuko合作系列、Aoi Yoshizawa系列），但不像Røros那样把设计师变成主角——设计师是"幕后"的，产品本身和季节情绪才是主角。这让品牌调性始终统一，不会因为设计师风格差异而分裂。</p>
+
+  <div class="insight">
+    <p><strong>Lapuan Kankurit对帛冠的启示：</strong>"按场景/情绪分组"比"按产品线分组"更有销售力。帛冠可以把面料按使用场景重新组织——"商务差旅系列""周末休闲系列""礼服场合系列"——每个场景就是一个情绪入口。客户不是在找"一块涤纶混纺"，而是在找"出差三天不皱的那种感觉"。</p>
+  </div>
+</section>
+
+<!-- CASE 4: Le Minor -->
+<section>
+  <p class="section-label">案例四 · 材料传记叙事</p>
+  <h3>Le Minor（法国布列塔尼）</h3>
+
+  <div class="brand-card">
+    <div class="brand-meta">
+      <span>法国 · Guidel, 布列塔尼</span>
+      <span>~25人</span>
+      <span>年营收 ~$3-5M</span>
+      <span>1922年创立 · 水手衫起家</span>
+    </div>
+    <p>Le Minor是布列塔尼的百年织造厂，以水手条纹衫（marinière）闻名。2018年被新团队接手后重新定位：不再只做成衣，而是把"布列塔尼织造"本身变成品牌资产。他们的核心产品叙事工具是一本叫"Livre des Étoffes"（面料之书）的实体册子——每块布都有自己的"传记"。</p>
+  </div>
+
+  <p><strong>以下为Le Minor "Livre des Étoffes"（面料之书）及工坊实拍：</strong></p>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/leminor_01.jpg" alt="Le Minor Livre des Étoffes - 面料概念">
+      <p class="img-caption">Livre des Étoffes · 面料之书概念视觉</p>
+    </div>
+    <div>
+      <img src="images/v02/leminor_04.jpg" alt="Le Minor - Kabig大衣 · 羊毛呢面料">
+      <p class="img-caption">Kabig大衣 · 百年工艺的羊毛呢面料</p>
+    </div>
+  </div>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/leminor_02.jpg" alt="Le Minor - Jules Tournier工坊织造">
+      <p class="img-caption">Jules Tournier工坊 · 1865年至今的织造传承</p>
+    </div>
+    <div>
+      <img src="images/v02/leminor_03.jpg" alt="Le Minor - 工坊纪实">
+      <p class="img-caption">工坊纪实 · 从纱线到成品的完整链路</p>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <p class="label">产品叙事策略</p>
+    <p>"材料传记"——Le Minor为每款面料写一份完整的"生命故事"：棉花在哪里种的、纱线怎么纺的、织机用的什么型号、染色用的什么工艺、最终适合做什么。这不是技术规格表——它读起来像一篇短文，有起承转合，有"主角"（这块布）的成长历程。客户读完会觉得自己"认识"这块布。</p>
+  </div>
+
+  <p><strong>视觉风格：</strong></p>
+  <p>
+    <span class="style-tag">工坊纪实摄影</span>
+    <span class="style-tag">材料特写</span>
+    <span class="style-tag">手写体标注</span>
+    <span class="style-tag">法式克制排版</span>
+  </p>
+
+  <p>Le Minor的视觉策略是"工坊纪实"——大量使用织机运转中的照片、工人手部特写、纱线从原料到成品的过程照。排版上借鉴法式出版物的克制感：大量留白、衬线字体、偶尔出现的手写体标注（像是工匠在样品上做的笔记）。整体感觉不是"广告"，而是"档案"——一种有温度的档案。</p>
+
+  <p>他们还有一个巧妙的做法：每款面料都有一个"推荐搭配"——不是搭配其他面料，而是搭配一个具体的生活场景。比如他们的经典条纹针织布，推荐场景是"周六早晨去面包店的路上"。这把一块布变成了一个生活方式的符号。</p>
+
+  <div class="insight">
+    <p><strong>Le Minor对帛冠的启示：</strong>"材料传记"是帛冠最可直接复用的策略。帛冠的每款面料都有一条完整的生产链——从纤维选择到织造到后整理。把这条链写成一个"故事"而不是一张"表格"，就是Le Minor在做的事。AI模型可以自动把参数转译成叙事："这款面料的旅程从新疆长绒棉开始，经过40支精梳……"</p>
+  </div>
+</section>
+
+<!-- CASE 5: Johanna Gullichsen -->
+<section>
+  <p class="section-label">案例五 · 建筑几何叙事</p>
+  <h3>Johanna Gullichsen（芬兰赫尔辛基）</h3>
+
+  <div class="brand-card">
+    <div class="brand-meta">
+      <span>芬兰 · 赫尔辛基</span>
+      <span>~15人</span>
+      <span>年营收 ~$2-3M</span>
+      <span>建筑师跨界 · 几何织物</span>
+    </div>
+    <p>Johanna Gullichsen是芬兰建筑师Alvar Aalto的曾孙女，她把建筑思维带入了纺织设计。品牌只做一件事：用严格的几何图案织造功能性面料。每款面料都像一张建筑平面图——精确、模块化、可无限延展。</p>
+  </div>
+
+  <p><strong>以下为Johanna Gullichsen 2023产品目录实拍页面：</strong></p>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/gullichsen_page-01.jpg" alt="Johanna Gullichsen - 目录封面">
+      <p class="img-caption">目录封面 · 几何图案的建筑感呈现</p>
+    </div>
+    <div>
+      <img src="images/v02/gullichsen_page-03.jpg" alt="Johanna Gullichsen - 产品系列">
+      <p class="img-caption">产品系列 · 图案解构与材料说明</p>
+    </div>
+  </div>
+  <div class="img-grid">
+    <div>
+      <img src="images/v02/gullichsen_page-05.jpg" alt="Johanna Gullichsen - 空间应用">
+      <p class="img-caption">空间应用 · 织物在建筑空间中的效果</p>
+    </div>
+    <div>
+      <img src="images/v02/gullichsen_page-06.jpg" alt="Johanna Gullichsen - 色彩系统">
+      <p class="img-caption">色彩系统 · 模块化的几何配色逻辑</p>
+    </div>
+  </div>
+
+  <div class="story-block">
+    <p class="label">产品叙事策略</p>
+    <p>"建筑逻辑"——Johanna Gullichsen不讲"这块布手感如何"，而是讲"这个图案的几何逻辑是什么"。每款面料的产品页都从一张"图案解构图"开始——像建筑图纸一样标注repeat单元、对称轴、比例关系。然后才是材料信息和应用场景。客户买的不是"一块好看的布"，而是"一套可以在空间中无限延展的视觉系统"。</p>
+  </div>
+
+  <p><strong>视觉风格：</strong></p>
+  <p>
+    <span class="style-tag">建筑摄影风格</span>
+    <span class="style-tag">几何图案解构</span>
+    <span class="style-tag">黑白+单色</span>
+    <span class="style-tag">模块化展示</span>
+  </p>
+
+  <p>视觉呈现极度克制：白色背景、无装饰、产品照永远是正面平铺或45度角。但有一个独特元素——每款面料旁边都会放一张"空间应用图"，展示这块布在真实建筑空间中的效果（椅面、窗帘、隔断）。这种"从图案到空间"的跳跃，让客户立刻理解这块布的使用价值。</p>
+
+  <p>她的命名系统也值得注意：每个系列都以地名命名（Doris、Normandie、Helios），但这些地名不是产地——而是"灵感来源地"。Normandie系列的灵感来自诺曼底海岸的鹅卵石排列，Doris系列来自古希腊多利安柱式的比例。命名本身就是一个故事入口。</p>
+
+  <div class="insight">
+    <p><strong>Johanna Gullichsen对帛冠的启示：</strong>"系统化展示"的思路对帛冠的提花、大循环面料特别适用。帛冠有很多面料的卖点恰恰是"图案设计"——与其只放一张平铺照，不如展示"图案逻辑→单品效果→空间效果"的三级跳。让客户看到一块布如何从一个repeat单元变成一整面墙、一整张沙发。</p>
+  </div>
+</section>
+
+<!-- SYNTHESIS -->
+<section>
+  <p class="section-label">综合分析</p>
+  <h2>五种小而精的路径，帛冠该走哪条？</h2>
+
+  <p class="lead">五个案例，五种完全不同的"精致"策略。它们的共同点不是视觉风格，而是一个底层逻辑：<strong>每个品牌都找到了一个属于自己的"核心矛盾"，然后把这个矛盾变成了产品叙事的引擎。</strong></p>
+
+  <div class="story-block">
+    <p class="label">五种路径一览</p>
+    <p><strong>HUIS</strong> — 慢 vs 快 → "因为慢，所以有空气感"<br>
+    <strong>Røros Tweed</strong> — 设计师 vs 产地 → "每条毯子都有署名创作者"<br>
+    <strong>Lapuan Kankurit</strong> — 季节 vs 产品 → "买的不是毯子，是一个季节的感觉"<br>
+    <strong>Le Minor</strong> — 材料 vs 故事 → "每块布都有一本护照"<br>
+    <strong>Johanna Gullichsen</strong> — 图案 vs 空间 → "织物是柔软的建筑"</p>
+  </div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>帛冠纺织 · 产品包装AI小模型 — V0.2 中小品牌精选案例<br>2026年5月 · 补充交付</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -350,6 +350,78 @@ strong { color: var(--ink); font-weight: 500; }
 }
 .format-bench strong { color: var(--ink); }
 
+/* ==================== TEXT-ONLY VISUAL ==================== */
+/* 用于暂无可信参考图的形式：用排版组合替代照片，保持视觉节奏 */
+.format-noimg {
+  position: relative;
+  background: linear-gradient(135deg, var(--linen-soft) 0%, var(--linen-deep) 100%);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  aspect-ratio: 4 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px 30px;
+  box-shadow: 0 8px 24px rgba(26,24,21,0.10), inset 0 0 0 1px rgba(255,255,255,0.4);
+  overflow: hidden;
+}
+.format-noimg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='22' viewBox='0 0 30 22'%3E%3Cpath d='M0 11 Q4 3 8 11 T16 11 T24 11 T32 11' stroke='%237a2b3f' stroke-width='0.5' fill='none' opacity='0.10'/%3E%3Cpath d='M0 22 Q4 14 8 22 T16 22 T24 22 T32 22' stroke='%237a2b3f' stroke-width='0.5' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 30px 22px;
+  pointer-events: none;
+}
+.format-noimg .format-tag {
+  position: relative;
+  background: var(--ink);
+  color: var(--linen);
+  align-self: flex-start;
+}
+.format-noimg-body {
+  position: relative;
+  text-align: center;
+  margin-top: -8px;
+}
+.format-noimg-icon {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 88px;
+  font-weight: 300;
+  color: var(--plum);
+  line-height: 1;
+  letter-spacing: -3px;
+  margin-bottom: 14px;
+  opacity: 0.85;
+}
+.format-noimg-cn {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.format-noimg-en {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+}
+.format-noimg-foot {
+  position: relative;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 1.5px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line-strong);
+}
+
 /* ==================== DECISION TABLE ==================== */
 .decision-tbl {
   margin-top: 60px;
@@ -494,7 +566,10 @@ strong { color: var(--ink); font-weight: 500; }
 <div class="wrap">
   <p class="section-label">The Twelve · 12 种线下呈现形式</p>
   <h2>从 <em>线圈微距</em> 到 <em>定制纸样夹</em><br>每一种，都是一种"让客户摸到"的语言</h2>
-  <p class="lead">下面 12 种形式都来自 B2B 面料行业的真实使用场景——欧美一线面料厂（Pontetorto、Eurojersey、Schoeller）、面料贸易行（Maharam、Kvadrat）、纱线展（Pitti Filati）、设备商（Shima Seiki、Stoll）、品牌商（Sunspel、John Smedley、Le Minor）。<strong>不是创意点子，是同行已经在用的标准物料。</strong>本节按编号顺序逐一展开，每种含一张标杆图、80 字定义、四项关键参数与"谁在做"的标杆案例。</p>
+  <p class="lead">下面 12 种形式都来自 B2B 面料行业的真实使用场景——欧美一线面料厂（Pontetorto、Eurojersey、Schoeller）、面料贸易行（Maharam、Kvadrat）、纱线展（Pitti Filati）、设备商（Shima Seiki、Stoll）、品牌商（Sunspel、John Smedley、Le Minor）。<strong>不是创意点子，是同行已经在用的标准物料。</strong>本节按编号顺序逐一展开，每种含一张参考图、80 字定义、四项关键参数与"谁在做"的标杆案例。</p>
+  <p style="font-size:13px; color:var(--ink-dim); border-left:2px solid var(--line-strong); padding:8px 14px; max-width:780px; margin-top:-8px; margin-bottom:32px; background:rgba(255,255,255,0.3);">
+    <strong style="color:var(--ink);">关于配图：</strong>本文档 12 种形式中，<strong>7 种附公开网络检索到的参考图</strong>（02、03、11 高匹配；01、04、07、10 部分匹配，仅作示意），<strong>5 种因公开图源稀缺暂未配图</strong>（05、06、08、09、12，标注"参考图待补"）。所有图均为示意用途，最终采用某种形式时建议由设计师按文字描述重新打样。
+  </p>
 
   <div class="format-list">
 
@@ -604,11 +679,14 @@ strong { color: var(--ink); font-weight: 500; }
 
     <!-- 05 -->
     <div class="format-card">
-      <div class="format-img">
+      <div class="format-noimg">
         <span class="format-tag">05 · TACTILE FOLDOUT</span>
-        <img src="images/v03/05_tactile_foldout.jpg" alt="触感折页 · Maharam Project"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="placeholder" style="display:none">图片加载中</div>
+        <div class="format-noimg-body">
+          <div class="format-noimg-icon">05</div>
+          <div class="format-noimg-cn">触感折页</div>
+          <div class="format-noimg-en">Tactile Foldout</div>
+        </div>
+        <div class="format-noimg-foot">参考图待补 · 见右侧文字</div>
       </div>
       <div class="format-text">
         <div class="format-num">05</div>
@@ -630,11 +708,14 @@ strong { color: var(--ink); font-weight: 500; }
 
     <!-- 06 -->
     <div class="format-card">
-      <div class="format-img">
+      <div class="format-noimg">
         <span class="format-tag">06 · MACHINE CARD</span>
-        <img src="images/v03/06_circular_machine.jpg" alt="圆机机型卡 · Mayer & Cie"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="placeholder" style="display:none">图片加载中</div>
+        <div class="format-noimg-body">
+          <div class="format-noimg-icon">06</div>
+          <div class="format-noimg-cn">圆机机型卡</div>
+          <div class="format-noimg-en">Knitting Machine Card</div>
+        </div>
+        <div class="format-noimg-foot">参考图待补 · 见右侧文字</div>
       </div>
       <div class="format-text">
         <div class="format-num">06</div>
@@ -682,11 +763,14 @@ strong { color: var(--ink); font-weight: 500; }
 
     <!-- 08 -->
     <div class="format-card">
-      <div class="format-img">
+      <div class="format-noimg">
         <span class="format-tag">08 · PROCESS SCROLL</span>
-        <img src="images/v03/08_process_scroll.jpg" alt="工艺流程长卷 · Le Minor"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="placeholder" style="display:none">图片加载中</div>
+        <div class="format-noimg-body">
+          <div class="format-noimg-icon">08</div>
+          <div class="format-noimg-cn">工艺流程长卷</div>
+          <div class="format-noimg-en">Process Long-Scroll</div>
+        </div>
+        <div class="format-noimg-foot">参考图待补 · 见右侧文字</div>
       </div>
       <div class="format-text">
         <div class="format-num">08</div>
@@ -708,11 +792,14 @@ strong { color: var(--ink); font-weight: 500; }
 
     <!-- 09 -->
     <div class="format-card">
-      <div class="format-img">
+      <div class="format-noimg">
         <span class="format-tag">09 · CAPSULE BOX</span>
-        <img src="images/v03/09_capsule_box.jpg" alt="系列样衣盒 · Sunspel"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="placeholder" style="display:none">图片加载中</div>
+        <div class="format-noimg-body">
+          <div class="format-noimg-icon">09</div>
+          <div class="format-noimg-cn">系列样衣盒</div>
+          <div class="format-noimg-en">Capsule Sample Box</div>
+        </div>
+        <div class="format-noimg-foot">参考图待补 · 见右侧文字</div>
       </div>
       <div class="format-text">
         <div class="format-num">09</div>
@@ -786,11 +873,14 @@ strong { color: var(--ink); font-weight: 500; }
 
     <!-- 12 -->
     <div class="format-card">
-      <div class="format-img">
+      <div class="format-noimg">
         <span class="format-tag">12 · CLIENT BINDER</span>
-        <img src="images/v03/12_client_binder.jpg" alt="客户定制纸样夹 · Maharam"
-             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="placeholder" style="display:none">图片加载中</div>
+        <div class="format-noimg-body">
+          <div class="format-noimg-icon">12</div>
+          <div class="format-noimg-cn">客户定制纸样夹</div>
+          <div class="format-noimg-en">Custom Client Binder</div>
+        </div>
+        <div class="format-noimg-foot">参考图待补 · 见右侧文字</div>
       </div>
       <div class="format-text">
         <div class="format-num">12</div>

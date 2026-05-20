@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>帛冠纺织 · V0.3 针织呈现形式菜单</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --linen:        #e8dfd0;
+  --linen-soft:   #efe8db;
+  --linen-deep:   #d8ccb7;
+  --ink:          #1a1815;
+  --ink-soft:     #3c3833;
+  --ink-dim:      #6b6359;
+  --ink-faint:    #8a8278;
+  --plum:         #7a2b3f;
+  --plum-soft:    #a14961;
+  --plum-faint:   rgba(122,43,63,0.08);
+  --line:         rgba(26,24,21,0.14);
+  --line-strong:  rgba(26,24,21,0.32);
+  --serif:        "Cormorant Garamond", "Noto Serif SC", serif;
+  --sans:         "Noto Serif SC", -apple-system, sans-serif;
+  --mono:         "JetBrains Mono", "Courier New", monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--linen);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.85;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='30' viewBox='0 0 40 30'%3E%3Cpath d='M0 15 Q5 5 10 15 T20 15 T30 15 T40 15' stroke='%231a1815' stroke-width='0.4' fill='none' opacity='0.07'/%3E%3Cpath d='M0 30 Q5 20 10 30 T20 30 T30 30 T40 30' stroke='%231a1815' stroke-width='0.4' fill='none' opacity='0.05'/%3E%3C/svg%3E");
+  background-size: 40px 30px;
+  pointer-events: none;
+  z-index: 1;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 2;
+}
+.wrap { width: min(1180px, calc(100% - 56px)); margin: 0 auto; position: relative; z-index: 3; }
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 110px;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  right: -8%;
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(ellipse, rgba(122,43,63,0.10) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 38px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+}
+.hero-meta .ver {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--plum);
+  border: 1px solid var(--plum);
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+.hero-meta .label {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(46px, 6.4vw, 86px);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -0.5px;
+  margin-bottom: 32px;
+  color: var(--ink);
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.4s forwards;
+}
+.hero h1 em { font-style: italic; color: var(--plum); font-weight: 400; }
+.hero-sub {
+  font-size: 19px;
+  color: var(--ink-soft);
+  max-width: 640px;
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.6s forwards;
+  margin-bottom: 60px;
+}
+.hero-counter {
+  display: flex;
+  gap: 56px;
+  padding-top: 36px;
+  border-top: 1px solid var(--line);
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.8s forwards;
+}
+.hero-counter > div { display: flex; flex-direction: column; gap: 4px; }
+.hero-counter .num {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 300;
+  color: var(--plum);
+  line-height: 1;
+}
+.hero-counter .lbl {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+section {
+  padding: 100px 0;
+  border-top: 1px solid var(--line);
+  position: relative;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--plum);
+  margin-bottom: 36px;
+}
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(34px, 4.4vw, 52px);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 32px;
+  letter-spacing: -0.3px;
+}
+h2 em { font-style: italic; color: var(--plum); }
+h3 {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 14px;
+  color: var(--ink);
+  line-height: 1.25;
+}
+p { margin-bottom: 18px; color: var(--ink-soft); }
+p.lead { font-size: 20px; color: var(--ink); line-height: 1.7; max-width: 780px; }
+strong { color: var(--ink); font-weight: 500; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== POSITIONING ==================== */
+.positioning-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 48px;
+}
+.positioning-cell {
+  padding: 28px 32px;
+  background: rgba(255,255,255,0.32);
+  border-left: 2px solid var(--plum);
+  backdrop-filter: blur(2px);
+}
+.positioning-cell .tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--plum);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.positioning-cell p { margin: 0; font-size: 15px; line-height: 1.7; color: var(--ink-soft); }
+.positioning-cell strong { color: var(--ink); }
+.divider-quote {
+  margin: 60px auto 0;
+  padding: 36px 48px;
+  max-width: 820px;
+  background: var(--plum-faint);
+  border-top: 1px solid var(--plum);
+  border-bottom: 1px solid var(--plum);
+  text-align: center;
+}
+.divider-quote p {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--plum);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==================== FORMAT CARDS ==================== */
+.format-list { margin-top: 60px; }
+.format-card {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 56px;
+  align-items: start;
+  padding: 56px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.format-card:nth-child(even) { grid-template-columns: 1fr 1.05fr; }
+.format-card:nth-child(even) .format-img { order: 2; }
+.format-card:nth-child(even) .format-text { order: 1; }
+.format-img {
+  position: relative;
+  background: var(--linen-deep);
+  border-radius: 2px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 14px 40px rgba(26,24,21,0.18), 0 2px 6px rgba(26,24,21,0.10);
+}
+.format-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.02) saturate(0.92);
+}
+.format-img .placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.format-img .placeholder::before {
+  content: '';
+  width: 56px;
+  height: 56px;
+  border: 1.5px solid var(--ink-faint);
+  border-radius: 50%;
+  opacity: 0.4;
+}
+.format-tag {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  background: rgba(232,223,208,0.92);
+  backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--plum);
+  border-radius: 2px;
+}
+.format-num {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 72px;
+  font-weight: 300;
+  color: var(--plum);
+  line-height: 0.9;
+  margin-bottom: 8px;
+  letter-spacing: -2px;
+}
+.format-cn {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.format-en {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 22px;
+  display: inline-block;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line-strong);
+}
+.format-def {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+}
+.format-def strong { color: var(--ink); font-weight: 500; }
+.format-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  margin: 18px 0 22px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+  letter-spacing: 1px;
+}
+.format-meta span { display: inline-flex; align-items: baseline; gap: 6px; }
+.format-meta b { color: var(--ink); font-weight: 500; }
+.format-bench {
+  background: rgba(255,255,255,0.4);
+  border-left: 2px solid var(--plum);
+  padding: 14px 18px;
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.format-bench .label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--plum);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.format-bench strong { color: var(--ink); }
+
+/* ==================== DECISION TABLE ==================== */
+.decision-tbl {
+  margin-top: 60px;
+  background: rgba(255,255,255,0.4);
+  border: 1px solid var(--line);
+}
+.decision-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 110px 130px 1fr;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+  font-size: 14px;
+}
+.decision-row:last-child { border-bottom: none; }
+.decision-row.head {
+  background: var(--plum);
+  color: var(--linen-soft);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 14px 24px;
+}
+.decision-row.head > * { color: var(--linen-soft); }
+.decision-num {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--plum);
+  font-size: 18px;
+}
+.decision-name { color: var(--ink); font-weight: 500; }
+.decision-tier {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.tier-v1 { background: var(--plum); color: var(--linen-soft); }
+.tier-v2 { background: var(--linen-deep); color: var(--ink); }
+.tier-skip { background: transparent; color: var(--ink-faint); border: 1px solid var(--ink-faint); }
+.decision-cost {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-dim);
+}
+.decision-why { color: var(--ink-soft); font-size: 13px; line-height: 1.55; }
+
+/* ==================== FOOTER ==================== */
+.footer {
+  padding: 80px 0 64px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.footer-mark {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--plum);
+  margin-bottom: 18px;
+}
+.footer p {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--ink-faint);
+  font-family: var(--mono);
+  margin: 0;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 880px) {
+  .positioning-grid { grid-template-columns: 1fr; }
+  .format-card,
+  .format-card:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .format-card:nth-child(even) .format-img,
+  .format-card:nth-child(even) .format-text { order: initial; }
+  .format-num { font-size: 56px; }
+  .decision-row { grid-template-columns: 1fr; gap: 6px; padding: 16px 18px; }
+  .decision-row.head { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-meta">
+    <span class="ver">V 0.3</span>
+    <span class="label">帛冠纺织 · 针织呈现形式菜单</span>
+  </div>
+  <h1>除了 PPT 和 A4，<br>针织面料还有 <em>12 种讲法</em></h1>
+  <p class="hero-sub">V0.1 列了主流三件套：PPT 提案、企划卡、A4 规格表。但针织是立体的、有弹性的、可触摸的——平面纸张永远说不清"手感"。这一版把范围聚焦到 B2B 针织面料厂真实在用、且可以直接拿到客户手里的物理形态。</p>
+  <div class="hero-counter">
+    <div><span class="num">12</span><span class="lbl">线下呈现形式</span></div>
+    <div><span class="num">B2B</span><span class="lbl">针织面料语境</span></div>
+    <div><span class="num">实物</span><span class="lbl">而非屏幕</span></div>
+  </div>
+</header>
+</div>
+
+<!-- 内容区会在后续 Edit 中追加 -->
+
+<!-- ==================== POSITIONING ==================== -->
+<section>
+<div class="wrap">
+  <p class="section-label">Positioning · 为什么针织需要"另外的呈现形式"</p>
+  <h2>针织和梭织，<em>不是同一种东西</em></h2>
+  <p class="lead">梭织面料是经纬交叉的"网"，平面、稳定、参数化；针织面料是线圈穿套的"链"，立体、有弹性、依赖手感判断。<strong>用做梭织的方式（PPT + A4 规格表）去推针织，等于把一个三维的东西拍扁了卖。</strong>下面四个本质差异，决定了针织必须要有自己的呈现形式：</p>
+
+  <div class="positioning-grid">
+    <div class="positioning-cell">
+      <p class="tag">差异 01 · 立体</p>
+      <p>线圈结构本身就是<strong>三维的</strong>——同一克重、同一成分，单面 vs 双面、罗纹 vs 提花，做出来的衣服完全不同。<strong>平面照片永远拍不出"厚度感"</strong>，必须靠实物。</p>
+    </div>
+    <div class="positioning-cell">
+      <p class="tag">差异 02 · 弹性</p>
+      <p>针织有横纵向<strong>弹性回复率</strong>——这决定了贴身性、塑形度、抗变形度。客户必须<strong>亲手拉一拉</strong>才知道是"有筋骨的弹"还是"软塌的弹"。</p>
+    </div>
+    <div class="positioning-cell">
+      <p class="tag">差异 03 · 透光</p>
+      <p>针织线圈之间天然有<strong>孔隙</strong>，所以印象中针织"显瘦"或"显胖"取决于透光率。这件事<strong>纸面打印件做不出来</strong>，必须放到光下、贴在皮肤上看。</p>
+    </div>
+    <div class="positioning-cell">
+      <p class="tag">差异 04 · 手感</p>
+      <p>针织的"软糯""温润""沙滑"——这些词在 PPT 里是空话。客户需要<strong>用手指捻、用脸颊蹭、用掌心按</strong>，才能区分 60 支双股 vs 80 支单股的手感差。</p>
+    </div>
+  </div>
+
+  <div class="divider-quote">
+    <p>"针织不是看的，是摸的。<br>所以针织的产品包装，必须能被手摸到。"</p>
+  </div>
+</div>
+</section>
+
+<!-- ==================== 12 FORMATS ==================== -->
+<section>
+<div class="wrap">
+  <p class="section-label">The Twelve · 针织面料 12 种线下呈现形式</p>
+  <h2>从 <em>线圈微距</em> 到 <em>定制纸样夹</em><br>每一种，都是一种"让客户摸到"的语言</h2>
+  <p class="lead">下面 12 种形式都来自 B2B 针织面料行业的真实使用场景——欧洲一线针织面料厂（Pontetorto、Eurojersey、Schoeller）、面料贸易行（Maharam、Kvadrat）、纱线展（Pitti Filati）和针织设备商（Shima Seiki、Stoll）。<strong>不是"创意点子"，是同行已经在用的标准物料。</strong></p>
+
+  <div class="format-list">
+
+    <!-- 01 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">01 · LOOP MACRO</span>
+        <img src="images/v03/01_loop_macro.jpg" alt="线圈微距卡 · Pontetorto"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">01</div>
+        <h3 class="format-cn">线圈微距卡</h3>
+        <span class="format-en">Loop Macro Card</span>
+        <p class="format-def">A5 厚卡，正面是<strong>放大 200% 的针织线圈微距摄影</strong>——能清楚看见每一根纱线如何穿过前后线圈、表面起绒、织针痕迹。背面贴一片真实面料样。<strong>客户先用眼睛"读懂"这块布的结构，再用手感受。</strong></p>
+        <div class="format-meta">
+          <span><b>尺寸</b> A5 / 148×210mm</span>
+          <span><b>载体</b> 350g 厚卡</span>
+          <span><b>成本</b> 中等</span>
+          <span><b>批量</b> 单款 100+</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Pontetorto（意大利 Prato）</strong>用线圈微距摄影展示其专利 Tecnopile 摇粒绒结构。<strong>Polartec</strong>的产品卡正面是放大 300% 的绒面截面图。
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">02 · STITCH ATLAS</span>
+        <img src="images/v03/02_stitch_atlas.jpg" alt="组织结构图谱 · Fashionary"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">02</div>
+        <h3 class="format-cn">组织结构图谱</h3>
+        <span class="format-en">Stitch Atlas / Knit Structure Book</span>
+        <p class="format-def">装订成册的<strong>"针织组织字典"</strong>。每页一种针法（1×1 罗纹、双面提花、米兰诺、Interlock、Pointelle、3D 提花、Cable…），同款纱线、同款克重，<strong>只换组织</strong>。客户能直观对比"同样是 32 支精梳棉，做成单面 vs 双面，差别在哪"。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 17×24cm</span>
+          <span><b>载体</b> 26 页活页装</span>
+          <span><b>成本</b> 高</span>
+          <span><b>批量</b> 头部客户专享</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Fashionary "Knit Swatches Kit"</strong>把 26 种商业针织结构装订成盒，每片均用 7Nm 羊毛-腈纶纱织造。<strong>Shima Seiki Yarnbank</strong>提供面向品牌客户的实物针法图谱。
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">03 · YARN SPECIMEN</span>
+        <img src="images/v03/03_yarn_specimen.jpg" alt="纱线标本卡 · Cardiff Cashmere"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">03</div>
+        <h3 class="format-cn">纱线标本卡</h3>
+        <span class="format-en">Yarn Specimen Card</span>
+        <p class="format-def">把<strong>真纱线</strong>缠绕固定在卡片上，旁边贴上<strong>该纱织成的成品布</strong>——上下对照。客户能直接看到 60S 桑蚕丝纱本体的光泽 vs 织成 17G 罗纹后的样子。这是针织独有的解释方式：<strong>纱定一切。</strong></p>
+        <div class="format-meta">
+          <span><b>尺寸</b> A4 / 210×297mm</span>
+          <span><b>载体</b> 4mm 厚衬卡</span>
+          <span><b>成本</b> 低-中</span>
+          <span><b>批量</b> 标准化批产</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Cardiff Cashmere "Colors" 色卡</strong>展示 100% 山羊绒纱在 6/28 支下的 60+ 色成品。<strong>Halcyon Yarn</strong>提供 47 种不同纱线的标本卡，每张含纱本体 + 织片对照。
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">04 · HANGER</span>
+        <img src="images/v03/04_hanger_sample.jpg" alt="翻样夹 · Maharam Showroom"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">04</div>
+        <h3 class="format-cn">翻样夹 / 挂样</h3>
+        <span class="format-en">Hanger Sample / Header Card</span>
+        <p class="format-def"><strong>30×40cm 大样片</strong>顶部钉一片硬卡（成分、克重、幅宽、art-no.），中间打孔穿金属环——挂在样品架上，<strong>整面墙翻过去找布</strong>。这是面料贸易行最常用的 B2B 物料，业务员一句"墙上看一下"就完成了第一轮筛选。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 30×40cm</span>
+          <span><b>载体</b> 真布 + 硬卡头</span>
+          <span><b>成本</b> 低（按米剪）</span>
+          <span><b>批量</b> 全系列覆盖</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Maharam Showroom Hangers</strong>所有产品都做 36"宽挂样。<strong>Kvadrat</strong>的 hanger 顶部是金属夹+成分英文/丹麦文双语。<strong>Sophie Hallette</strong>的法式挂样头印有手写体编号。
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">05 · TACTILE FOLDOUT</span>
+        <img src="images/v03/05_tactile_foldout.jpg" alt="触感折页 · Maharam Project"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">05</div>
+        <h3 class="format-cn">触感折页</h3>
+        <span class="format-en">Tactile Foldout Brochure</span>
+        <p class="format-def"><strong>多折拉页</strong>——展开是一整面，每折嵌入一片真实面料。打开第一折是双面针织，第二折是罗纹，第三折是毛圈，第四折是提花……一次操作完成<strong>整个系列的手感对比</strong>。客户在桌面上展开就像翻一本立体书。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 展开 80–120cm</span>
+          <span><b>载体</b> 6–8 折叠页</span>
+          <span><b>成本</b> 中-高</span>
+          <span><b>批量</b> 重点系列</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Maharam Project</strong>系列的 6 折拉页，每折一种产品。<strong>Lapuan Kankurit</strong>的季节折页把 4 款亚麻织物做成可以一只手展开的折叠卡。
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">06 · MACHINE CARD</span>
+        <img src="images/v03/06_circular_machine.jpg" alt="圆机机型卡 · Mayer & Cie"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">06</div>
+        <h3 class="format-cn">圆机机型卡</h3>
+        <span class="format-en">Knitting Machine Card</span>
+        <p class="format-def">针织独有：把"<strong>哪台机器织出来的</strong>"做成可视化卡片——单面圆机、双面圆机、罗纹机、Interlock 机、电脑横机（Stoll/Shima），每张配一片该机型的代表性样布。客户做版型采购时，能直接对应"我要的是横机做出来的那种坑条"。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 大 16 开</span>
+          <span><b>载体</b> 卡片 + 样布</span>
+          <span><b>成本</b> 中等</span>
+          <span><b>批量</b> 一次性印制</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Mayer &amp; Cie / Santoni / Terrot</strong>等圆机厂的客户教育卡。<strong>Shima Seiki Yarnbank</strong>提供机型与样片的实物对照工具包。
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">07 · GRADIENT CARD</span>
+        <img src="images/v03/07_shade_card.jpg" alt="染色梯度卡 · Loro Piana"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">07</div>
+        <h3 class="format-cn">染色梯度卡</h3>
+        <span class="format-en">Shade Gradient Card</span>
+        <p class="format-def"><strong>同一款基布</strong>，染成 30+ 个色阶——做成长条卡片或扇形展开卡。每个色块都是真布，下方标 Pantone / 帛冠色号 / 染缸号。客户做季节配色提案时，<strong>直接对着卡选号</strong>，不用再拍照传 RGB 误差。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 长卡 / 扇形</span>
+          <span><b>载体</b> 30+ 色真布</span>
+          <span><b>成本</b> 中等（按色数）</span>
+          <span><b>批量</b> 主推款专做</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Cardiff Cashmere "Classic" 色卡</strong>含 60+ 色的羊绒纱实物对照。<strong>Loro Piana</strong>的羊绒梯度卡按"自然色 / 染色 / 复杂混色"分组排列。
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">08 · PROCESS SCROLL</span>
+        <img src="images/v03/08_process_scroll.jpg" alt="工艺流程长卷 · Le Minor"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">08</div>
+        <h3 class="format-cn">工艺流程长卷</h3>
+        <span class="format-en">Process Long-Scroll</span>
+        <p class="format-def">折叠长卷，从<strong>棉花原棉 → 纺纱 → 坯布 → 染色 → 后整理 → 成品</strong>逐节展开，每个节点贴一片真实样品（原棉、纱线、坯布片、染色后、整理后）。<strong>客户读完=认识了这块布的整条生命链</strong>，附加值不再是"参数表"而是"传记"。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 展开 1.2–1.5m</span>
+          <span><b>载体</b> 风琴折</span>
+          <span><b>成本</b> 高</span>
+          <span><b>批量</b> 旗舰款专属</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Le Minor "Livre des Étoffes"（面料之书）</strong>为每款面料写完整生命传记。<strong>Pontetorto Tecnopile 流程册</strong>展示从废 PET 到成品摇粒绒的 7 个节点实样。
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">09 · CAPSULE BOX</span>
+        <img src="images/v03/09_capsule_box.jpg" alt="系列样衣盒 · Sunspel"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">09</div>
+        <h3 class="format-cn">系列样衣盒</h3>
+        <span class="format-en">Capsule Sample Box</span>
+        <p class="format-def">礼盒装：<strong>面料样片 + 同款迷你成衣</strong>（缩小版 T 恤 / 小衫片 / 袖头样），让客户能直接看到"这块布做成衣服后是什么样"。这是针织面料推向品牌商时的杀手锏——<strong>跳过想象，直接见到成品力。</strong></p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 礼盒 30×30cm</span>
+          <span><b>载体</b> 布 + 微型成衣</span>
+          <span><b>成本</b> 高</span>
+          <span><b>批量</b> 头部客户开发</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Sunspel</strong>的 Heritage 周年礼盒含原型布料 + 微型 T 恤。<strong>John Smedley</strong>的客户开发盒装一片当季羊毛织物 + 该款的 1/4 比例小成衣。
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">10 · DESIGNER ZINE</span>
+        <img src="images/v03/10_designer_zine.jpg" alt="设计师 Zine · Lapuan Kankurit"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">10</div>
+        <h3 class="format-cn">设计师合作 Zine</h3>
+        <span class="format-en">Designer Capsule Zine</span>
+        <p class="format-def">联合一位<strong>独立设计师 / 艺术家 / 摄影师</strong>做一本印刷 zine——内页夹入针织样片、设计草图、色彩故事、灵感图。<strong>面料从"原料"变成"作品的一部分"</strong>。客户拿走的不是宣传册，是一件可以收藏的印刷品。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 24 页 / 16 开</span>
+          <span><b>载体</b> 纸+实物贴片</span>
+          <span><b>成本</b> 中-高</span>
+          <span><b>批量</b> 季度发行</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Lapuan Kankurit × Mifuko / Aoi Yoshizawa</strong>每季一本设计师合作册。<strong>Røros Tweed</strong>每个 lookbook 都是命名设计师 zine。
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">11 · TRADE SHOW WALL</span>
+        <img src="images/v03/11_tradeshow_wall.jpg" alt="展会展板 · Première Vision"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">11</div>
+        <h3 class="format-cn">展会展板</h3>
+        <span class="format-en">Trade Show Knit Wall</span>
+        <p class="format-def">展会场景下的<strong>立体面料矩阵墙</strong>——把同一系列的 60+ 块布按主题分区悬挂（按色系 / 按机型 / 按场景），客户可以直接走过去触摸、抽出、对光。<strong>展会本身就是最大的"线下呈现形式"</strong>，但展板设计是有讲究的。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> 整面墙</span>
+          <span><b>载体</b> 木制龙骨 + 真布</span>
+          <span><b>成本</b> 高（一次性）</span>
+          <span><b>批量</b> Pitti / PV / Intertextile</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Première Vision Knitwear Solutions Hall 6</strong>的"Knitwear Focus"主题墙由 Xavier Brisoux 策展。<strong>Pitti Filati</strong>的针织趋势墙按色系+针法双轴矩阵布置。
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="format-card">
+      <div class="format-img">
+        <span class="format-tag">12 · CLIENT BINDER</span>
+        <img src="images/v03/12_client_binder.jpg" alt="客户定制纸样夹 · Maharam"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="placeholder" style="display:none">图片加载中</div>
+      </div>
+      <div class="format-text">
+        <div class="format-num">12</div>
+        <h3 class="format-cn">客户定制纸样夹</h3>
+        <span class="format-en">Custom Client Binder</span>
+        <p class="format-def">A3 大开本活页夹，<strong>按客户/按季节/按系列</strong>分仓——夹页里装真布 + 该款的成分页 + 历史版本对比。<strong>每位重点客户一本专属夹</strong>，业务员每次拜访就是"拿夹子去对答案"。这是面料贸易行延续了 50 年的销售工具，至今没有数字化方案能取代。</p>
+        <div class="format-meta">
+          <span><b>尺寸</b> A3 活页夹</span>
+          <span><b>载体</b> 真布 + 卡 + 透明页</span>
+          <span><b>成本</b> 中（持续投入）</span>
+          <span><b>批量</b> 每客户一本</span>
+        </div>
+        <div class="format-bench">
+          <span class="label">标杆 · 谁在做</span>
+          <strong>Maharam / Knoll Textiles / Holland &amp; Sherry</strong>showroom 的客户专属 binder。<strong>Camira</strong>为前 50 大客户每年更新一本"Account Binder"。
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ==================== DECISION TABLE ==================== -->
+<section>
+<div class="wrap">
+  <p class="section-label">Decision · 12 → 3 决策表</p>
+  <h2>不是 12 种都要做。<br><em>哪些适合帛冠 V1，哪些 V2，哪些先放下</em></h2>
+  <p class="lead">12 种里，每一种都有真实标杆——但帛冠不是 Maharam 也不是 Kvadrat。第一阶段必须挑出"成本可控、AI 能批量生成、业务员一接就能用"的形态。下面是初步建议，留待第二轮反馈逐项确认：</p>
+
+  <div class="decision-tbl">
+    <div class="decision-row head">
+      <div>序号</div><div>形式</div><div>建议优先级</div><div>成本量级</div><div>判断理由</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">01</div>
+      <div class="decision-name">线圈微距卡</div>
+      <div><span class="decision-tier tier-v1">V1 主力</span></div>
+      <div class="decision-cost">¥3-8 / 张</div>
+      <div class="decision-why">AI 最容易标准化：一张微距图 + 一段参数翻译。覆盖整个产品库的成本可控。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">03</div>
+      <div class="decision-name">纱线标本卡</div>
+      <div><span class="decision-tier tier-v1">V1 主力</span></div>
+      <div class="decision-cost">¥5-12 / 张</div>
+      <div class="decision-why">针织最核心的"纱定一切"。一次设计、长期复用，AI 可批量出文案。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">04</div>
+      <div class="decision-name">翻样夹 / 挂样</div>
+      <div><span class="decision-tier tier-v1">V1 主力</span></div>
+      <div class="decision-cost">¥2-5 / 片</div>
+      <div class="decision-why">B2B 针织最基础物料。AI 负责头卡上的成分页 + 卖点翻译。每款必做。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">07</div>
+      <div class="decision-name">染色梯度卡</div>
+      <div><span class="decision-tier tier-v1">V1 主力</span></div>
+      <div class="decision-cost">¥30-80 / 卡</div>
+      <div class="decision-why">主推款必备。AI 可基于色号库自动排版，减少打样师手工拼版。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">02</div>
+      <div class="decision-name">组织结构图谱</div>
+      <div><span class="decision-tier tier-v2">V2 选做</span></div>
+      <div class="decision-cost">¥200-500 / 套</div>
+      <div class="decision-why">单本成本高，适合给战略客户做"教育型物料"，量产前期有限制。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">05</div>
+      <div class="decision-name">触感折页</div>
+      <div><span class="decision-tier tier-v2">V2 选做</span></div>
+      <div class="decision-cost">¥40-120 / 份</div>
+      <div class="decision-why">展会和重点提案场景效果好，但单价高，先做 1-2 个旗舰系列试水。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">08</div>
+      <div class="decision-name">工艺流程长卷</div>
+      <div><span class="decision-tier tier-v2">V2 选做</span></div>
+      <div class="decision-cost">¥80-200 / 卷</div>
+      <div class="decision-why">做品牌升级的关键物料，但需要工厂照片素材到位。AI 可写文案，难做版式。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">11</div>
+      <div class="decision-name">展会展板</div>
+      <div><span class="decision-tier tier-v2">V2 选做</span></div>
+      <div class="decision-cost">一次性 5w+</div>
+      <div class="decision-why">每年 Intertextile / Pitti 一次。AI 帮做主题策划 + 物料清单。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">12</div>
+      <div class="decision-name">客户定制纸样夹</div>
+      <div><span class="decision-tier tier-v2">V2 选做</span></div>
+      <div class="decision-cost">¥150-300 / 本</div>
+      <div class="decision-why">头部客户专属。AI 负责按客户偏好自动选样、出索引页。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">06</div>
+      <div class="decision-name">圆机机型卡</div>
+      <div><span class="decision-tier tier-skip">先放下</span></div>
+      <div class="decision-cost">—</div>
+      <div class="decision-why">教育性强但销售转化弱。机型对应布是固定的，不需要 AI 重复生成。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">09</div>
+      <div class="decision-name">系列样衣盒</div>
+      <div><span class="decision-tier tier-skip">先放下</span></div>
+      <div class="decision-cost">¥800+ / 盒</div>
+      <div class="decision-why">需要打版师做迷你成衣，超出面料厂能力边界。建议合作设计师一起做。</div>
+    </div>
+    <div class="decision-row">
+      <div class="decision-num">10</div>
+      <div class="decision-name">设计师合作 Zine</div>
+      <div><span class="decision-tier tier-skip">先放下</span></div>
+      <div class="decision-cost">¥300-800 / 本</div>
+      <div class="decision-why">需要找到对的设计师合作伙伴。等品牌定位明确后再启动。</div>
+    </div>
+  </div>
+
+  <div class="divider-quote" style="margin-top: 64px">
+    <p>V1 先把 4 张主力做扎实——<br>线圈微距卡 / 纱线标本卡 / 翻样夹 / 染色梯度卡。<br>这四张能覆盖 80% 的客户决策场景。</p>
+  </div>
+</div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+<div class="wrap">
+  <div class="footer-mark">帛冠纺织 · Boguan Textile</div>
+  <p>V0.3 · 针织呈现形式菜单 / 第三阶段交付 · 2026.05.20</p>
+</div>
+</footer>
+
+</body>
+</html>
